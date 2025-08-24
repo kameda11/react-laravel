@@ -1,4 +1,3 @@
-version: '3'
 services:
   app:
     build:
@@ -26,6 +25,7 @@ services:
 
   db:
     image: mysql:8.0
+    platform: linux/amd64
     ports:
       - "3306:3306"
     environment:
@@ -46,7 +46,7 @@ services:
       - ./frontend:/app
     ports:
       - "3000:3000"
-    command: sh -c "if [ -f package.json ]; then npm install && npm start; else echo 'Waiting for frontend setup...'; fi"
+    command: sh -c "npm run dev"
     networks:
       - laravel-network
 

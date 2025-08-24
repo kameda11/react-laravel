@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import { motion } from 'framer-motion';
 
 interface Task {
   id: number;
@@ -18,9 +19,14 @@ function App() {
     const fetchTasks = async () => {
       try {
         const response = await axios.get('/api/tasks');
-        setTasks(response.data);
+        // レスポンスデータが配列であることを確認
+        const tasksData = Array.isArray(response.data) ? response.data : [];
+        console.log('API Response:', response.data);
+        console.log('Tasks Data:', tasksData);
+        setTasks(tasksData);
         setLoading(false);
       } catch (err) {
+        console.error('API Error:', err);
         setError('タスクの取得に失敗しました');
         setLoading(false);
       }
@@ -35,16 +41,24 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+              <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: "auto" }}
+              ></motion.div>
         <h1>タスク一覧</h1>
       </header>
       <main>
-        <ul>
-          {tasks.map(task => (
-            <li key={task.id} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
-              {task.title}
-            </li>
-          ))}
-        </ul>
+        {Array.isArray(tasks) && tasks.length > 0 ? (
+          <ul>
+            {tasks.map(task => (
+              <li key={task.id} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>
+                {task.title}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>タスクがありません</p>
+        )}
       </main>
     </div>
   );

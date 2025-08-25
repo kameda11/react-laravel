@@ -1,14 +1,70 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
 import { motion } from "framer-motion";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import Review from "./pages/Review";
 
+const appCss = `
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header h1 {
+  margin-bottom: 40px;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.navigation a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navigation a:hover {
+  color: #61dafb;
+}
+
+.navigation a.active {
+  color: #61dafb;
+  border-bottom: 2px solid #61dafb;
+}
+
+main {
+  min-height: 60vh;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+`;
+
 function App() {
     return (
         <Router>
+            <style>{appCss}</style>
             <div className="App">
                 <header className="App-header">
                     <motion.h1

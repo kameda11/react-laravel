@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 const Review = () => {
     const styles = {
         page: {
-            padding: '40px 20px',
+            padding: "40px 20px",
             flex: 1,
-            backgroundColor: '#616367',
-            textAlign: 'center' as const,
-            display: 'flex',
-            flexDirection: 'column' as const,
-            justifyContent: 'center',
+            backgroundColor: "#616367",
+            textAlign: "center" as const,
+            display: "flex",
+            flexDirection: "column" as const,
+            justifyContent: "center",
         },
         title: {
-            color: 'white',
-            marginBottom: '20px',
-            fontSize: '2rem',
+            color: "white",
+            marginBottom: "20px",
+            fontSize: "2rem",
         },
     };
 

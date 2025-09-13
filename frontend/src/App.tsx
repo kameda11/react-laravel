@@ -19,6 +19,7 @@ function AppContent() {
             height: "100vh",
             display: "flex",
             flexDirection: "column" as const,
+            backgroundColor: "#616367",
         },
         header: {
             backgroundColor: "#616367",
@@ -47,9 +48,6 @@ function AppContent() {
         <div style={styles.app}>
             <header style={styles.header}>
                 <motion.h1
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 2 }}
                     style={styles.title}
                 >
                     Movie Map
@@ -58,8 +56,8 @@ function AppContent() {
             </header>
             <motion.main
                 style={styles.main}
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
+                initial={{ x: "100%", backgroundColor: "#616367" }}
+                animate={{ x: 0, backgroundColor: "#616367" }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
             >
                 <AnimatePresence mode="wait">

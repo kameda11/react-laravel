@@ -1,88 +1,80 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { motion } from "framer-motion";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useLocation,
+} from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import Review from "./pages/Review";
+import "../src/index.css";
 
-const appCss = `
-.App {
-  text-align: center;
-}
+function AppContent() {
+    const location = useLocation();
+    const styles = {
+        app: {
+            textAlign: "center" as const,
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column" as const,
+            backgroundColor: "#616367",
+        },
+        header: {
+            backgroundColor: "#616367",
+            minHeight: "30vh",
+            display: "flex",
+            flexDirection: "column" as const,
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "calc(10px + 2vmin)",
+            color: "white",
+            flexShrink: 0,
+        },
+        title: {
+            marginBottom: "40px",
+        },
+        main: {
+            flex: 1,
+            display: "flex",
+            flexDirection: "column" as const,
+            overflowY: "auto" as const,
+            backgroundColor: "#616367",
+        },
+    };
 
-.App-header {
-  background-color: #282c34;
-  min-height: 30vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    return (
+        <div style={styles.app}>
+            <header style={styles.header}>
+                <motion.h1
+                    style={styles.title}
+                >
+                    Movie Map
+                </motion.h1>
+                <Navigation />
+            </header>
+            <motion.main
+                style={styles.main}
+                initial={{ x: "100%", backgroundColor: "#616367" }}
+                animate={{ x: 0, backgroundColor: "#616367" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+                <AnimatePresence mode="wait">
+                    <Routes location={location} key={location.pathname}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/review" element={<Review />} />
+                    </Routes>
+                </AnimatePresence>
+            </motion.main>
+        </div>
+    );
 }
-
-.App-header h1 {
-  margin-bottom: 40px;
-}
-
-.navigation ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.navigation a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.navigation a:hover {
-  color: #61dafb;
-}
-
-.navigation a.active {
-  color: #61dafb;
-  border-bottom: 2px solid #61dafb;
-}
-
-main {
-  min-height: 60vh;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-`;
 
 function App() {
     return (
         <Router>
-            <style>{appCss}</style>
-            <div className="App">
-                <header className="App-header">
-                    <motion.h1
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 2 }}
-                    >
-                        Movie Map
-                    </motion.h1>
-                    <Navigation />
-                </header>
-                <main>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/review" element={<Review />} />
-                    </Routes>
-                </main>
-            </div>
+            <AppContent />
         </Router>
     );
 }
